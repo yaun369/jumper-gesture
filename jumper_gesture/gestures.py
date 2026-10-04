@@ -56,6 +56,8 @@ class Detector:
                                  else "cuda:0" if torch.cuda.is_available() else "cpu")
         self.imgsz = imgsz
         self.names = self.model.names
+        # 预热：第一次推理（尤其是 MPS）要编译算子，慢一秒左右，别让它落在第一个手势上
+        self.model.predict(np.zeros((480, 640, 3), np.uint8), imgsz=imgsz, device=self.device, verbose=False)
 
     def __call__(self, bgr: np.ndarray, conf: float) -> list[Detection]:
         r = self.model.predict(bgr, conf=conf, imgsz=self.imgsz, device=self.device, verbose=False)[0]

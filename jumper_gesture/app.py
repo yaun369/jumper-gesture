@@ -45,7 +45,8 @@ def parse_args(argv=None) -> argparse.Namespace:
     p.add_argument("--jumper", type=Path, default=default_jumper(),
                    help="官方 jumper 仓库路径（默认 ../jumper，或环境变量 JUMPER_ROOT）")
     p.add_argument("--app", type=Path, default=None, help="动作包，默认用官方示例 jumper.app")
-    p.add_argument("--scene", default=None, help="仿真场景，如 studio / beach（见官方 play.py --list）")
+    p.add_argument("--scene", default="daylight",
+                   help="仿真场景：daylight（默认）/ studio / beach / default 等，完整列表见 README")
     p.add_argument("--physics-hz", type=int, default=200, help="物理频率，200 与训练一致，1000 更精细但更慢")
     p.add_argument("--layout", choices=["horizontal", "vertical"], default="horizontal",
                    help="horizontal 横屏 16:9；vertical 竖屏 9:16（抖音）")

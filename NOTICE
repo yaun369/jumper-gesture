@@ -1,0 +1,21 @@
+jumper-gesture
+Copyright 2026 jumper-gesture 作者
+
+本项目代码以 GNU AGPL-3.0-or-later 发布（见 LICENSE），因为它直接依赖 Ultralytics（AGPL-3.0）。
+
+本项目使用、但不包含以下第三方作品，它们各自保留原许可：
+
+- 跳跳 / Jumper 官方开源工具包（机器人模型、预训练动作、部署控制器、仿真框架）
+  https://github.com/KingKongRobotics/jumper
+  Copyright 2026 KingKong Robotics，Apache License 2.0
+
+- HaGRIDv2 手势数据集与 YOLOv10n 手势检测模型（运行时下载到 models/）
+  https://github.com/hukenovs/hagrid
+  许可：Public license with attribution and conditions reserved
+  （基于 CC BY-SA 4.0 改写，使用时须署名并遵守其条件）
+  Kapitanov, Kvanchiani, Nagaev, Kraynov, Makhliarchuk.
+  "HaGRID -- HAnd Gesture Recognition Image Dataset", WACV 2024.
+
+- Ultralytics YOLO  https://github.com/ultralytics/ultralytics  AGPL-3.0
+- MuJoCo            https://github.com/google-deepmind/mujoco  Apache License 2.0
+- OpenCV            https://github.com/opencv/opencv           Apache License 2.0
