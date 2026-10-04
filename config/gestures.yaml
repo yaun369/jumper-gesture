@@ -1,0 +1,37 @@
+# 手势 → 跳跳动作 映射表
+#
+# 左边的键是 HaGRIDv2 手势模型的类别名（完整列表见 README「可用手势」一节），
+# 每一项说明这个手势让跳跳做什么。改这个文件就能换玩法，不用改代码。
+#
+# action 取值（对应官方 jumper.app 里的模式，按键由程序自动发送）：
+#   gesture_hello      挥钳打招呼      （官方按键 1）
+#   gesture_bow        鞠躬            （官方按键 2）
+#   gesture_paw        伸爪            （官方按键 3）
+#   gesture_salute     敬礼            （官方按键 4）
+#   jump               跳跃            （官方按键 空格）
+#   dance_crab         螃蟹舞          （官方按键 Ctrl+1）
+#   dance_brazilian    巴西舞          （官方按键 Ctrl+2）
+#   dance_maze         迷宫舞          （官方按键 Ctrl+3）
+#   dance_dream_wings  梦之翼舞        （官方按键 Ctrl+4）
+#   stop               停下，回到站立  （官方按键 单按 Ctrl）
+#   walk_forward       手势保持期间向前走（官方按键 按住 W）
+#   turn_left / turn_right  手势保持期间原地转向（官方按键 按住 J / L）
+
+gestures:
+  palm:        { action: gesture_hello,     label: 张开手掌 }
+  holy:        { action: gesture_bow,       label: 双手合十 }
+  like:        { action: gesture_salute,    label: 点赞 }
+  ok:          { action: gesture_paw,       label: OK }
+  fist:        { action: jump,              label: 握拳 }
+  peace:       { action: dance_crab,        label: 比耶 }
+  hand_heart:  { action: dance_dream_wings, label: 双手比心 }
+  rock:        { action: dance_brazilian,   label: 摇滚 }
+  xsign:       { action: stop,              label: 双手交叉 }
+  point:       { action: walk_forward,      label: 食指指向 }
+
+# 识别参数
+recognition:
+  confidence: 0.5      # 低于这个置信度的检测直接忽略
+  stable_frames: 6     # 同一手势连续出现这么多帧才算数（30 FPS 下约 0.2 秒）
+  release_frames: 8    # 手势消失这么多帧后，才允许同一手势再次触发
+  imgsz: 640           # YOLO 推理尺寸

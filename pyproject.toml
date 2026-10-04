@@ -1,0 +1,28 @@
+[project]
+name = "jumper-gesture"
+version = "0.1.0"
+description = "用 YOLO 手势识别控制螃蟹机器人「跳跳」的官方开源仿真"
+readme = "README.md"
+requires-python = ">=3.10,<3.14"
+license = "AGPL-3.0-or-later"
+# 官方 jumper 仓库不在 PyPI 上，需要另外 `pip install -e ../jumper`（见 README）。
+dependencies = [
+    "ultralytics>=8.3",
+    "opencv-python",
+    "pillow",
+    "pyyaml",
+    "numpy",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.scripts]
+jumper-gesture = "jumper_gesture.app:main"
+
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["jumper_gesture*"]
