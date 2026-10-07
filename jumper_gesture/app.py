@@ -54,7 +54,8 @@ def parse_args(argv=None) -> argparse.Namespace:
     p.add_argument("--record", action="store_true", help="启动后立刻开始录制（窗口里按 R 也可以开关）")
     p.add_argument("--out", type=Path, default=REPO / "recordings", help="录制输出目录")
     p.add_argument("--camera-distance", type=float, default=1.1)
-    p.add_argument("--camera-azimuth", type=float, default=150.0)
+    p.add_argument("--camera-azimuth", type=float, default=180.0,
+                   help="相机相对机身朝向的水平角：180 正面（默认）/ 0 背后 / 90、270 侧面")
     p.add_argument("--camera-elevation", type=float, default=-18.0)
     p.add_argument("--no-window", action="store_true", help="不开窗口（配合 --duration 做自动测试）")
     p.add_argument("--duration", type=float, default=None, help="运行这么多秒后自动退出")

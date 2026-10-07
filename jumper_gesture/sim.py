@@ -48,7 +48,13 @@ def _play_argv(cfg: dict) -> list[str]:
 
 
 class Renderer:
-    """离屏渲染跳跳，相机跟随机身。"""
+    """离屏渲染跳跳，相机跟随机身位置和朝向。
+
+    azimuth 是相对机身朝向的水平角：180 = 正面（机身 +x 是前方），0 = 背后，
+    90 / 270 = 两侧。机身转向时相机平滑地跟着转，跳跳始终保持同一个角度面对镜头。
+    """
+
+    YAW_FOLLOW = 0.15  # 每帧朝当前机身朝向靠近的比例，越小相机越稳、跟得越慢
 
     def __init__(self, model, width: int, height: int, camera: dict) -> None:
         import mujoco
@@ -64,13 +70,25 @@ class Renderer:
         cam.trackbodyid = int(free[0]) if free else 0
         cam.distance = camera.get("distance", 1.1)
         cam.elevation = camera.get("elevation", -18.0)
-        cam.azimuth = camera.get("azimuth", 150.0)
         self.cam = cam
+        self.azimuth = camera.get("azimuth", 180.0)
+        self._yaw: float | None = None
+
+    def _body_yaw(self) -> float:
+        """机身前方（body +x）在水平面上的朝向，单位度。"""
+        R = self.data.xmat[self.cam.trackbodyid].reshape(3, 3)
+        return float(np.degrees(np.arctan2(R[1, 0], R[0, 0])))
 
     def render(self, qpos: np.ndarray, qvel: np.ndarray) -> np.ndarray:
         self.data.qpos[:] = qpos
         self.data.qvel[:] = qvel
         self._mujoco.mj_forward(self.model, self.data)
+        yaw = self._body_yaw()
+        if self._yaw is None:
+            self._yaw = yaw
+        else:  # 平滑跟随，按最短方向转，避免 ±180° 处跳变
+            self._yaw += self.YAW_FOLLOW * ((yaw - self._yaw + 180.0) % 360.0 - 180.0)
+        self.cam.azimuth = self._yaw + self.azimuth
         self.renderer.update_scene(self.data, camera=self.cam)
         return self.renderer.render()
 

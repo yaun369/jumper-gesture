@@ -213,7 +213,7 @@ uv pip install --python .venv/bin/python -e ".[dev]"
 | `--record` | 关 | 启动即录制 |
 | `--fps` | `30` | 仿真渲染和录制帧率 |
 | `--physics-hz` | `200` | 物理频率。200 与官方训练一致；1000 接触更精细，但更吃 CPU |
-| `--camera-distance` / `--camera-azimuth` / `--camera-elevation` | `1.1` / `150` / `-18` | 跟拍相机的距离（米）、水平角、俯仰角（度） |
+| `--camera-distance` / `--camera-azimuth` / `--camera-elevation` | `1.1` / `180` / `-18` | 跟拍相机的距离（米）、水平角、俯仰角（度）。水平角相对机身朝向：180 正面、0 背后、90 / 270 侧面，机身转向时相机跟着转 |
 | `--config` | `config/gestures.yaml` | 手势映射表 |
 | `--device` | 自动 | YOLO 推理设备：`mps` / `cuda:0` / `cpu` |
 | `--jumper` | `../jumper` | 官方仓库路径，也可以设环境变量 `JUMPER_ROOT` |
